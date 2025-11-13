@@ -1,23 +1,63 @@
 <html>
 <head>
     <title>Anderson Luis Mendonça</title>
+    <meta charset="UTF-8"> <style>
+        /* Adicionei um estilo básico para o campo de recebimento */
+        #recebido {
+            color: #007aff;
+            font-weight: bold;
+            font-family: monospace;
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <h1>Anderson Luis Mendonça</h1>
     <p>Welcome to my website!</p>
     <img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" alt="Ice Cream" />
+    
     <button onclick="postarMensagemParaDelphi('Olá Sky Informática')">
-        Olá
+        1. Enviar "Olá" para o Delphi
     </button>
+    
+    <hr> <h2>Dados Recebidos do Delphi:</h2>
+    <p>
+        O Delphi enviou: <span id="recebido">(Aguardando dados...)</span>
+    </p>
 
     <script>
+        /**
+         * FUNÇÃO RECEPTORA (Chamada pelo Delphi)
+         * Recebe dados DO Delphi e exibe na tela.
+         */
+        window.carregarDadosDoDelphi = function(jsonString) {
+            try {
+                console.log("Dados recebidos do Delphi:", jsonString);
+                const elRecebido = document.getElementById('recebido');
+
+                if (elRecebido) {
+                    // Preenche o <span> com a string recebida
+                    elRecebido.textContent = jsonString;
+                }
+            } catch (e) {
+                console.error("Falha ao processar JSON do Delphi:", e, jsonString);
+                alert("Erro ao receber dados do Delphi.");
+            }
+        };
+
+        /**
+         * FUNÇÃO EMISSORA (Chamada pelo HTML)
+         * Envia dados PARA o Delphi.
+         */
         function postarMensagemParaDelphi(mensagem) {
             if (window.chrome && window.chrome.webview) {
-                window.chrome.webview.postMessage(mensagem);                
+                window.chrome.webview.postMessage(mensagem);
                 console.log('Mensagem enviada:', mensagem);
-            } else {                
-                const erro = 'Erro: A aplicação não está rodando dentro do host WebView2 (Delphi).';                
-                console.error(erro);                
+            } else {
+                const erro = 'Erro: A aplicação não está rodando dentro do host WebView2 (Delphi).';
+                console.error(erro);
             }
         }
     </script>

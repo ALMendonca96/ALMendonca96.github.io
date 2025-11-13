@@ -4,6 +4,23 @@
   <h1>Anderson Luis Mendonça</h1>
   <p>Welcome to my website!</p>
   <img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" />
+ <button onclick="postarMensagemParaDelphi("Olá Sky Informática")">
+            Olá
+       </button>
 </body>
+
+<script>
+ function postarMensagemParaDelphi(mensagem) {
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage(mensagem);                
+                console.log('Mensagem enviada:', mensagem);
+            } else {                
+                const erro = 'Erro: A aplicação não está rodando dentro do host WebView2 (Delphi).';                
+                console.error(erro);                
+            }
+        }
+
+ 
+</script>
  
 </html>
